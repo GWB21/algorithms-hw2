@@ -1,7 +1,6 @@
 import random
 import sys
 
-
 class BSTNode:
     """A node in the vanilla BST tree."""
 
