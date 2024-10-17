@@ -1,4 +1,6 @@
-from graphviz import Digraph
+# from graphviz import Digraph
+from statistics import median
+
 
 class BSTNode:
     def __init__(self, value, parent):
@@ -31,7 +33,7 @@ class BSTNode:
 
 def update_height(node):
     while node is not None:
-        node.height = max(node.left.height if node.left else 0 , node.right.height if node.right else 0) + 1
+        node.height = max(height(node.left) , height(node.right)) + 1
         node = node.parent
 def height(node):
     if node is None:
@@ -54,28 +56,29 @@ class BinarySearchTree:
         update_height(node)
         return node
 
-    def visualize(self, filename='tree'):
-        dot = Digraph(comment='Binary Search Tree')
-        self._add_nodes(dot, self.root)
-        dot.render(filename, format='png', cleanup=True)
-
-    def _add_nodes(self, dot, root):
-        if root:
-            dot.node(str(root.value))
-            if root.left:
-                dot.edge(str(root.value), str(root.left.value), label='L')
-                self._add_nodes(dot, root.left)
-            if root.right:
-                dot.edge(str(root.value), str(root.right.value), label='R')
-                self._add_nodes(dot, root.right)
+    # def visualize(self, filename='tree'):
+    #     dot = Digraph(comment='Binary Search Tree')
+    #     self._add_nodes(dot, self.root)
+    #     dot.render(filename, format='png', cleanup=True)
+    #
+    # def _add_nodes(self, dot, root):
+    #     if root:
+    #         dot.node(str(root.value))
+    #         if root.left:
+    #             dot.edge(str(root.value), str(root.left.value), label='L')
+    #             self._add_nodes(dot, root.left)
+    #         if root.right:
+    #             dot.edge(str(root.value), str(root.right.value), label='R')
+    #             self._add_nodes(dot, root.right)
 
 
 def check_balance(node):
     if node is None:
         return "True it's balanced"
-    #
+
     # left_height = node.left.height if node.left else 0
     # right_height = node.right.height if node.right else 0
+
     left_right_height_diff = abs(height(node.left) - height(node.right))
 
     if left_right_height_diff >= 2:
@@ -157,3 +160,5 @@ tree = AVL()
 for i in range (1, 16):
     tree.insert(i)
 print(tree.rot_count)
+
+
